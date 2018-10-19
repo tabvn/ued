@@ -297,7 +297,10 @@ int main(){
 
 	for (int i = 0; i < vCanOpen.size(); ++i){
 		fo << vCanOpen[i] +1;
-		fo << " ";
+		if(i < vCanOpen.size() -1){
+			fo << " ";
+		}
+		
 	}
 
 
