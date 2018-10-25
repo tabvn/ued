@@ -1,20 +1,18 @@
 #include <iostream>
-#include <fstream>
 #include <vector>
 #include <math.h>
+//#include <fstream>
 
 using namespace std;
 
+//ifstream fi ("/Users/toan/ued/acm_mien_bac/K.INP");
 
-ifstream fi ("/Users/toan/ued/18-10-2018/SCARD.INP");
-ofstream fo ("/Users/toan/ued/18-10-2018/SCARD.OUT");
+#define input cin
 
 
 
-/*
-ifstream fi ("SCARD.INP");
-ofstream fo ("SCARD.OUT");
-*/
+long long M;
+
 
 struct Phong{	
 	vector<long long> v;
@@ -63,21 +61,44 @@ void phantichKey(vector<long long> &vt){
 			continue;
 		}
 
-		//
+		while (n%2 == 0) 
+    { 
+       	tmp.push_back(2);
+        n = n/2; 
+    } 
 
-		for (long long i = 2; i <=n; i++) {
+
+    for (int i = 3; i <= sqrt(n); i = i+2) 
+    { 
+        // While i divides n, print i and divide n 
+        while (n%i == 0) 
+        { 
+            //printf("%d ", i); 
+
+        			tmp.push_back(i);
+            n = n/i; 
+        } 
+    } 
+
+    if(n > 2){
+    	tmp.push_back(n);
+    }
+
+
+		/*for (long long i = 2; i <=n; i++) {
+
+
+	
 
 
 	        while(n % i == 0) {
 	          
+	         cout << "Phan tich tu:" << n << ":" << i << endl;
 
-	            if(i == n){
-	            	
-	            	tmp.push_back(i);
 
-	            	break;
-	            
-	            }
+	          	//tmp.push_back(i);
+
+	          
 
 
 	            if(i != 1){
@@ -92,7 +113,7 @@ void phantichKey(vector<long long> &vt){
 
 
 	        }
-    	}
+    	}*/
  	
         
 	}
@@ -126,22 +147,15 @@ void phantichPhong(Phong &phong){
 		}
 
 		
-		for (long long i = 2; i <=n; i++) {
+		/*for (long long i = 2; i <=n; i++) {
 
 
-	        while(n % i == 0) {
+	        while(n % i ==0) {
 	            //printf("%d.", i);
 	            
 	            //cout << "tich:" << i << " ";
 
-
-	            if(i == n){
-	            	//phong.v.push_back(i);
-	            	tmp.push_back(i);
-
-	            	break;
-	            
-	            }
+							//cout << "Phan tich mau:" << n << ":" << i << endl;
 
 
 	            if(i != 1){
@@ -150,13 +164,37 @@ void phantichPhong(Phong &phong){
 	            }
 	            
 
-	     
-
+	 
 	            n /= i;
 
 
 	        }
     	}
+    	*/
+
+		while (n%2 == 0) 
+    { 
+       	tmp.push_back(2);
+        n = n/2; 
+    } 
+
+
+    for (int i = 3; i <= sqrt(n); i = i+2) 
+    { 
+        // While i divides n, print i and divide n 
+        while (n%i == 0) 
+        { 
+            //printf("%d ", i); 
+
+        			tmp.push_back(i);
+            n = n/i; 
+        } 
+    } 
+
+    if(n > 2){
+    	tmp.push_back(n);
+    }
+
  	
         
 	}
@@ -169,7 +207,6 @@ void phantichPhong(Phong &phong){
 	tmp.clear();
 
 }
-
 
 void demChia(Phong &phong){
 
@@ -184,16 +221,14 @@ void demChia(Phong &phong){
 				continue;
 			}
 
-			//cout << "dem chia:" << vkTmp[ii] << " " << phong.v[jj] <<  " kq:" << vkTmp[ii] % phong.v[jj] <<endl;
-			
+	
 			if(vkTmp[ii] % phong.v[jj] == 0){
 				vkTmp[ii] = vkTmp[ii]/phong.v[jj];
 				if(vkTmp[ii] == 1){
 					vkTmp[ii] = -1; // danh dau la xoa 
 				}
 
-			
-
+		
 				phong.v[jj] = -1; // danh dau la da xoa va chia het
 
 
@@ -214,36 +249,73 @@ void demChia(Phong &phong){
 
 }
 
+
+
+long long tinhTu(vector<long long> vt){
+
+	long long value = 1;
+
+	for (int i = 0; i < vt.size(); ++i)
+	{
+
+	
+		if(vt[i] != -1){
+			
+			value *= vt[i] % M;
+		}
+	}
+
+	return value % M;
+
+}
+
+
+long long tinhMau(vector<long long> vt){
+
+	long long value = 1;
+
+	for (int i = 0; i < vt.size(); ++i)
+	{
+		if(vt[i] != -1){
+			
+			value *= vt[i] % M;
+		}
+	}
+
+	return value % M;
+
+}
+
 int main(){
 
 	vector<int> vCanOpen;
 
-	int m,n, totalCanOpen;
+	long long m,n, totalCanOpen, tu,mau;
 	long long ki,xi;
 
-	fi >> m >> n;
+	input >> m >> n >> M;
 
 	totalCanOpen = 0;
 	// input day so bi mat
 	for (int i = 0; i < m; ++i){
-		fi >> ki;
+		input >> ki;
 		vk.push_back(ki);
 	}
 	// input day so cac phong
 
-	for (int i = 0; i < n; ++i){
-		
+
 		phong.v.clear();
 		phong.canOpen = false;
 
-		for (int j = 0; j < m; ++j){
-				fi >> xi;
+		for (int j = 0; j < n; ++j){
+
+				input >> xi;
 				
 				phong.v.push_back(xi);
 
 		}
 		vp.push_back(phong);
-	}
+
 
 
 	// liet ke cac phong
@@ -261,18 +333,18 @@ int main(){
 			totalCanOpen++;
 			vCanOpen.push_back(i);
 			//cout << "mo duoc 1" << endl;
+			tu = tinhTu(vkTmp);
 
+			mau = 1;
 			
 
 		}else{
 			if(!kiemTraDaXoaHet(vkTmp)){
-				
-
+			
 				// ta tiep tuc phan tic ra thua so nguyen to
-				
-				
-				phantichKey(vkTmp);
 				phantichPhong(phong);
+				phantichKey(vkTmp);
+				
 
 				// ta dem chia lai
 
@@ -283,12 +355,20 @@ int main(){
 					totalCanOpen++;
 					vCanOpen.push_back(i);
 					//cout << "mo duoc 2" << endl;
+
+					tu = tinhTu(vkTmp);
+					mau = 1;
+
 				}else{
-					// lan nay thi chac chan la ko con cach nao mo dc roi :D
+					// lan nay thi chac chan la ko con cach nao mo dc 
+					tu = tinhTu(vkTmp);
+					mau = tinhMau(phong.v);
 				}
 
 			}else{
 				// khong chia het, tuc la ko mo duoc phong nay
+				tu = 1;
+				mau = tinhMau(phong.v);
 			}
 		}
 
@@ -297,19 +377,7 @@ int main(){
 		
 	}
 
-	fo << totalCanOpen << endl;
-
-	for (int i = 0; i < vCanOpen.size(); ++i){
-		fo << vCanOpen[i] +1;
-		if(i < vCanOpen.size() -1){
-			fo << " ";
-		}
-		
-	}
-
-
-	fi.close();
-	fo.close();
+	cout << tu << endl << mau;
 
 	return 0;
 }

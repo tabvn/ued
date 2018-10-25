@@ -4,8 +4,8 @@
 
 using namespace std;
 
-ifstream fi ("TRASH.INP");
-ofstream fo ("TRASH.OUT");
+ifstream fi ("TRACK.INP");
+ofstream fo ("TRACK.OUT");
 
 vector<long long> v;
 
@@ -27,7 +27,6 @@ int main(){
 		if(v[i] > t){
 			continue;
 		}else{
-			
 			total++;
 		}
 
@@ -42,7 +41,6 @@ int main(){
 
 			}else{
 				total++;
-				
 			}
 		}
 	

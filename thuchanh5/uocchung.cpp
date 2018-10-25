@@ -3,6 +3,15 @@
 using namespace std;
 
 long int uocLN(long int a, long int b){
+
+	if(a %b == 0){
+		return b;
+	}
+	if(b%a == 0){
+		return a;
+
+	}
+	
 	while(a != b){
 		if(a > b){
 			a = a-b;
