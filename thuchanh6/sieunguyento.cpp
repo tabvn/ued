@@ -28,6 +28,7 @@ int so(int len, bool isMin){
 
 
 int xoaSo(int n, int len){
+
 	while(len > 0){
 		n /=10;
 		len--;
@@ -35,6 +36,7 @@ int xoaSo(int n, int len){
 
 	return n;
 }
+
 int timSo(int n){
 
 	int total = 0;
@@ -51,6 +53,7 @@ int timSo(int n){
 					
 					if(!isPrime(x)){
 						snt = false;
+						break;
 					}
 				}
 
