@@ -4,87 +4,115 @@
 
 using namespace std;
 
-ifstream fi ("/Users/toan/ued/18-10-2018/SEQ.INP");
-ofstream fo ("/Users/toan/ued/18-10-2018/SEQ.OUT");
+ifstream fi ("/Users/toan/ued/SEQ.INP");
+ofstream fo ("/Users/toan/ued/SEQ.OUT");
 
-struct Block{
-	vector<long int> v;
-
-};
-
-Block block;
 
 vector<long int> v;
-vector<Block> blockArr;
 
-int findNumIndexInBlock(long int num){
+// tinh tong index -> index
+long long sum(int start, int len){
 
-	for (int i = 0; i < block.v.size(); ++i){
-		if(block.v[i] == num){
-			return i;
-		}
+	long long s = 0;
+
+	int to = start + len;
+
+	if(to > v.size()){
+		to = v.size();
+	}
+	for (int i = start; i < to; ++i){
+		//cout << v[i] << " ";
+		s+= v[i];
 	}
 
-	return -1;
+
+	return s;
+
 }
 
+long long sumWithB(long long aSum, int lastIndex){
+	
+	long long value = 0;
 
-void find(){
-
-	block.v.clear();
-
-	for (int i = 0; i < v.size(); ++i){
-
-		for (int j = i; j < v.size(); ++j){
-
-			if(findNumIndexInBlock(v[j]) > -1){
-				// ton tai nen doan nay khong lien tuc nua.
-				// ta bo qua
-				blockArr.push_back(block);
-				block.v.clear();
+	int len = 3;
 
 
-				break;
+	long long maxValue = 0;
+	long long theSumTotal = 0;
 
-			}else{
+	int startIndex = lastIndex;
 
-				cout << v[j];
-				block.v.push_back(v[j]);
-			}
+	while(startIndex < v.size() && len <= v.size()){
+		if(startIndex == v.size() - 1){
+			len += 3;
+			startIndex = lastIndex;
 		}
-		// them vao mang block
 
+		if(startIndex + len <= v.size() && (startIndex +len) %3 ==0){
+			
+			long long bSum = sum(startIndex, len);
+			
 		
 
+			theSumTotal = aSum+bSum;
+			if(theSumTotal > maxValue){
+				maxValue = theSumTotal;
+			}
+		}
+		
+
+		startIndex++;
 	}
 
+	return maxValue;
+
 }
+
 int main(){
 	long int a;
 	long long n;
-
 	fi >> n;
+
 	for (int i = 0; i < n; ++i){
 		fi >> a;
-		cout << a;
+		
 		v.push_back(a);
 	}
 
-	
+	int startIndex = 0;
+	int len = 3;
+	long long maxValue = 0;
 
-	find();
+	while(startIndex < v.size() && len <= v.size()){
+		if(startIndex == v.size() - 1){
+			len += 3;
+			startIndex = 0;
+		}
+		
+		if(startIndex + len <= v.size() && (startIndex +len %3) == 0){
 
+			//cout << "Choui A:";
+			long long aSum = sum(startIndex, len);
 
-	for (int i = 0; i < blockArr.size(); ++i){
-				
-				block = blockArr[i];
+			//cout  << "=" << aSum <<  " index:" << startIndex << " len:" << len<< endl;
+			// ta lan luot tang len roi kiem tra voi chuoi b
 
-			for (int j = 0; j < block.v.size(); ++j){
-					cout << block.v[j] << " ";
+			int bStartIndex = startIndex + len;
+
+			long long sWithB = sumWithB(aSum, bStartIndex);
+
+			if(sWithB > maxValue){
+				maxValue  = sWithB;
 			}
-			cout << endl;
 
+		}
+		
+		startIndex ++;
+
+		
 	}
+
+	fo << maxValue;
 
 	return 0;
 }
