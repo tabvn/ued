@@ -21,7 +21,9 @@ bool descSort(long int a, long int b){
 
 int main(){
 	int n;
-	long int a, score;
+	long int a;
+
+	long long score;
 
 	fi >> n;
 
@@ -64,5 +66,6 @@ int main(){
 
 	fi.close();
 	fo.close();
+	
 	return 0;
 }
