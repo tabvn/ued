@@ -161,9 +161,9 @@ int main(){
 
 		arr.clear(); // ta xoá hết mảng chưa các điểm đi qua
 		//cout << "tim: "<< from->num << " " << to->num << endl;
-		cout << findWay(from, to, arr);
+		fo << findWay(from, to, arr);
 		if(i < m -1){
-			cout << endl;
+			fo << endl;
 		}
 
 	}

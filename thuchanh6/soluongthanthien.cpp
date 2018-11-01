@@ -1,21 +1,15 @@
 #include <iostream>
 #include <math.h>
-
 using namespace std;
 
-long int reverseNumber(long int n){
 
-	long int sum = 0;
-	if(n < 10){
-		return n;
+long long daoSo(long long n, long long s){
+	if(n == 0){
+		return s;
 	}
-	while(n > 0){
-		sum = sum*10+(n%10);
-		n/=10;
-	}
-
-	return sum;
+	return daoSo(n/10, s*10 + n%10);
 }
+
 
 
 long int UCLN(long int a, long int b){
@@ -40,7 +34,7 @@ long int UCLN(long int a, long int b){
 }
 bool isThanThien(long int n){
 
-	if(UCLN(n, reverseNumber(n)) == 1){
+	if(UCLN(n, daoSo(n, 0)) == 1){
 		return true;
 	}
 

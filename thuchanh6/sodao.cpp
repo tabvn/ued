@@ -3,27 +3,17 @@
 
 using namespace std;
 
-
-long int daoSo(long int n){
-
-	long int sum = 0;
-	if(n < 10){
-		return n;
+long long daoSo(long long n, long long s){
+	if(n == 0){
+		return s;
 	}
-	while(n > 0){
-		sum = sum*10+(n%10);
-		n/=10;
-	}
-
-	return sum;
+	return daoSo(n/10, s*10 + n%10);
 }
-
-
 int main(){
 
 	long int n;
 	cin >> n;
-	long int value = daoSo(n);
+	long int value = daoSo(n,0);
 	cout << "So dao: ";
 	cout << value;
 	cout << " ";
