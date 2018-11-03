@@ -1,3 +1,36 @@
+/*
+Sample Tests:
+
+4 4
+.LX.
+.X..
+....
+.L..
+
+=> 1
+
+
+4 4 
+.XLX 
+.X.. 
+...L 
+.X..
+
+=>2
+
+7 7 
+...X.X. 
+XL....L 
+....... 
+...L... 
+.....XL 
+....... 
+...X...
+
+ => 1
+
+*/
+
 #include <iostream> 
 #include <vector>
 #include <algorithm>
