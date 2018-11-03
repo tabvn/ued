@@ -1,5 +1,7 @@
 #include <iostream> 
 #include <vector>
+#include <algorithm>
+
 using namespace std;
 
 const int PASSENGER = 0;
@@ -11,24 +13,30 @@ const int RIGHT = 2;
 const int BOTTOM = 3;
 const int TOP = 4;
 
+const int DEBUG = 0; // set 0 to turn off debug mode.
 
 struct Node
 {
 	int nodeType;
 	int row;
 	int column;
+	bool destroyed;
 };
 
-struct Line
-{
-	vector<Node*> v;
-	int len;
-};
 
 struct Point{
 	int row;
 	int column;
 };
+
+struct Line
+{
+	vector<Point> v;
+	Node *node;
+	Node *target;
+	int len;
+};
+
 // array chua cac nodes
 
 vector<Node> v;
@@ -38,6 +46,7 @@ void addNode(int row, int column, int nodeType){
 	node.nodeType = nodeType;
 	node.row = row;
 	node.column = column;
+	node.destroyed = false;
 
 	v.push_back(node);
 }
@@ -80,18 +89,6 @@ char _getTypeName(int n){
 
 }
 
-void Debug(){
-
-	Node n;
-	for (int i = 0; i < v.size(); ++i){
-		n = v[i];
-		cout << _getTypeName(n.nodeType);
-		cout << " rowIndex:" << n.row;
-		cout << " columnIndex:" << n.column << endl;
-
-	}
-}
-
 int getDirection(Point startP, Point targetP){
 
 	int myDecided = LEFT; // gan mac dinh the da
@@ -113,12 +110,8 @@ int getDirection(Point startP, Point targetP){
 	return myDecided;
 }
 
-Point getNextPoint(Point current, int direction){
+Point getNextPoint(Point p, int direction){
 
-	Point p;
-
-	p.row = current.row;
-	p.column = current.column;
 
 	if(direction == LEFT){
 			p.column -= 1;
@@ -132,45 +125,57 @@ Point getNextPoint(Point current, int direction){
 		p.row += 1;
 	}
 
+
 	return p;
+
 }
 
 void debugPoint(Point p, int direction){
+
 	if(direction == 1){
-		cout << "LEFT:";
+		cout << "Go left:";
 	}else if(direction == 2){
-			cout << "RIGHT";
+			cout << "Go right";
 	}
 	else if(direction == 3){
-			cout << "BOTTOM";
+			cout << "Go bottom";
 	}else{
-		cout << "TOP";
+		cout << "Go top";
 	}
 	cout << "(" << p.row << "," << p.column<< ")"<< endl;
 }
 
 
-int findMinLen(Node x, Node l){
+// X la passenger, L la ghe
+Line findMinLen(Node *x, Node *l){
 
-	vector<Point> pArr;
-	vector<Point> checkInArr;
+
+	Line line;
+	line.len = 0;
+	line.target = nullptr;
+	line.node = x;
+	line.v.clear();
+
 	// ta uu tien hang cot gan nhau
 	/*
 		X co the di: <-left, ->right , top , bottom
 	*/	
 
-	cout << "Tim duong di tu X " << x.row << ":" << x.column;
-	cout << " den L " << l.row << ":"<< l.column;
-	cout << endl;
+	if(DEBUG){
+		cout << "Tim duong di tu X " << x->row << ":" << x->column;
+		cout << " den L " << l->row << ":"<< l->column;
+		cout << endl;
+	}
+	
 
 	Point p;	
 	Point nextPoint;
 	Point targetPoint;
-	p.row = x.row;
-	p.column = x.column;
+	p.row = x->row;
+	p.column = x->column;
 
-	targetPoint.row = l.row;
-	targetPoint.column = l.column;
+	targetPoint.row = l->row;
+	targetPoint.column = l->column;
 
 	int direction; // huong di
 	Node nextNode;
@@ -183,17 +188,28 @@ int findMinLen(Node x, Node l){
 		// tim vi tri cho buoc di tiep theo
 		nextPoint = getNextPoint(p,direction);
 
-
-
-		debugPoint(nextPoint, direction);
+		if(DEBUG ==1){
+			debugPoint(nextPoint, direction);
+		}
+		
 		// kiem tra neu vi tri tiep theo trung voi ghe ngoi thi dung lai
-		if(nextPoint.row == l.row && nextPoint.column == l.column){
+		if(nextPoint.row == l->row && nextPoint.column == l->column){
+			line.target = l;
 			break;
 		}
 
+		// them vao danh sach cac diem da di qua hop le
+		p.row = nextPoint.row;
+		p.column = nextPoint.column;
+		line.v.push_back(p);
+		// cong them do dai duong di
+		line.len += 1;
+
+		/*
 		// neu gap vat can thi ta phai tinh toan lai duong di
 		int nextNodeIndex = findNodeIndex(nextPoint.row, nextPoint.column);
 		nextNode = v[nextNodeIndex];
+		//  Neu de bai yeu cau ca vat can thi phai xet them cho nay
 		if(nextNode.nodeType != FLOOR){
 			// cho nay khong on. ta phai tinh toan lai 
 			if(direction == LEFT){
@@ -201,38 +217,40 @@ int findMinLen(Node x, Node l){
 				// ta thu 
 			}
 
-		}else{
-			// them vao danh sach cac diem da di qua hop le
-			checkInArr.push_back(nextPoint);
 		}
+		*/
+
+
+
 
 	}
-
-	return 0;
-}
-// tim duong den cac ghe ngan nhat thi chon
-void findL(Node n){
-	int len = 0;
-	int minLen = 0;
-
-	for (int i = 0; i < v.size(); ++i){
-			if(v[i].nodeType == SEAT){
-				// neu la ghe thi ta tim duong di ngan nhat toi ghe
-				len = findMinLen(n, v[i]);
-
-				break;
-			}
-	}
-}
-// ta cho X di tim cac ghe
-Line go(Node n){
-	Line line;
-	
-	findL(n);
 
 	return line;
 }
+// tim duong den cac ghe ngan nhat thi chon
 
+void go(Node *n, vector<Line> *arr){
+	Line line;
+
+
+	for (int i = 0; i < v.size(); ++i){
+			
+			if(v[i].nodeType == SEAT && v[i].destroyed == false){
+				// neu la ghe thi ta tim duong di ngan nhat toi ghe
+				line = findMinLen(n, &v[i]);
+				if(line.target != nullptr){
+					arr->push_back(line);
+				}
+
+			}
+	}
+
+
+}
+
+bool ascSort(Line a, Line b){
+	return a.len < b.len;
+}
 int main(){
 	
 	int row, column;
@@ -249,18 +267,78 @@ int main(){
 			}
 	}
 
-	//Debug();
 
+	int explosions = 0;
+
+	vector<Line> lines; // mang chua tat cac cac duong di va muc tieu can den.
 	for (int i = 0; i < v.size(); ++i){
 			if(v[i].nodeType == PASSENGER){
-				// di chuyen
+				// di chuyen				
+				go(&v[i], &lines);
 
-				Line line = go(v[i]);
-				break;// tam lay 1 cai da
 			}
 	}
 
+	// sort tu thap len cao theo do dai duong di
 
+	sort(lines.begin(), lines.end(), ascSort);
+
+	// kiem tra xem co bao nhieu vu no xay ra
+	
+
+	for (int i = 0; i < lines.size(); ++i){
+
+		
+
+		if(lines[i].node->destroyed == true || lines[i].target->destroyed == true){
+			
+
+			continue;
+		}
+
+		bool hasExplosion = false;
+
+		for (int j = 0; j < lines.size(); ++j){
+			// ko so sanh voi chinh no
+
+			if(lines[i].node->row == lines[j].node->row && lines[i].node->column == lines[j].node->column){
+				// bo qua 
+				continue;
+			}
+
+			if(lines[j].node->destroyed  || lines[j].node->destroyed || lines[j].target->destroyed){
+				continue;
+			}
+			// kiem tra neu cung target va khoang cach bang nhau thi xay ra vu no
+
+			if(lines[i].target->row == lines[j].target->row 
+				&& lines[i].target->column == lines[j].target->column && lines[i].len == lines[j].len){
+				hasExplosion = true;
+				// boom
+				lines[j].node->destroyed = true;
+				
+				if(DEBUG){
+					cout << "Boom:" << endl;
+					cout << lines[i].node->row << ":" << lines[i].node->column <<  " to " << lines[i].target->row << ":" << lines[i].target->column << " len:" << lines[i].len << endl;
+					cout << lines[j].node->row << ":" << lines[j].node->column <<  " to " << lines[j].target->row << ":" << lines[j].target->column << " len:" << lines[j].len << endl;
+					cout  << "---------"<< endl;
+
+				}
+
+			}
+
+		}
+
+		if(hasExplosion){
+			// pha huy chinh no
+			lines[i].node->destroyed = true;
+			lines[i].target->destroyed = true;
+			explosions++;
+		}
+	}
+
+
+	cout << explosions;
 
 	return 0;
 }
