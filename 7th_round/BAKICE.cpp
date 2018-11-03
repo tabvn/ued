@@ -180,8 +180,6 @@ Line findMinLen(Node *x, Node *l){
 	int direction; // huong di
 	Node nextNode;
 
-
-
 	while(true){
 		// tim huong di
 		direction = getDirection(p, targetPoint);
@@ -221,18 +219,15 @@ Line findMinLen(Node *x, Node *l){
 		*/
 
 
-
-
 	}
 
 	return line;
 }
-// tim duong den cac ghe ngan nhat thi chon
 
+
+// tim cac duong di
 void go(Node *n, vector<Line> *arr){
 	Line line;
-
-
 	for (int i = 0; i < v.size(); ++i){
 			
 			if(v[i].nodeType == SEAT && v[i].destroyed == false){
@@ -284,15 +279,10 @@ int main(){
 	sort(lines.begin(), lines.end(), ascSort);
 
 	// kiem tra xem co bao nhieu vu no xay ra
-	
-
 	for (int i = 0; i < lines.size(); ++i){
-
-		
 
 		if(lines[i].node->destroyed == true || lines[i].target->destroyed == true){
 			
-
 			continue;
 		}
 
@@ -336,7 +326,6 @@ int main(){
 			explosions++;
 		}
 	}
-
 
 	cout << explosions;
 
