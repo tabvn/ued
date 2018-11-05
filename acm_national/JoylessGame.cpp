@@ -91,6 +91,11 @@ void winner(int player){
 }
 int findNodeIndex(){
 
+	if(priorities.size() == 1 || priorities.size() == 2){
+		// string contain same characters, or only two characters
+		return -1;
+	}
+
 	for (int i = 0; i < priorities.size(); ++i){
 		
 		if(priorities[i]->selected || priorities[i]->nodes.size() == 0){
