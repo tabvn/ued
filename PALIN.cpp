@@ -1,16 +1,25 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <vector>
 
 using namespace std;
-/*
-/Users/toan/ued/16-10-2018/PALIN
-*/
+
+
+struct LastCheck
+{
+	int len;
+	bool isDx;
+
+	LastCheck(){
+		this->len = 0;
+		this->isDx = false;
+	}
+};
 
 ifstream fi ("PALIN.INP");
 ofstream fo ("PALIN.OUT");
 
+LastCheck lastCheck;
 
 bool doiXung(string s, long long length){
 
@@ -42,27 +51,40 @@ int main(){
 
 	stringLength = s.size();
 
+	lastCheck.isDx = false;
+	lastCheck.len = 0;
+
 	for (int i = 0; i < q; ++i){
 
 		fi >> li;
 		
 		bool isDoiXung = false;
 
-		for(int i = 0; i < stringLength; ++i){	
-			xau = "";
-			xauLength = 0;
-
-			for(int j = i; j < i+li; j++){
-				xau+= s[j];
-				xauLength++;
-			}
-
-			if(xauLength == li){
-				// kiem tra tinh doi xung
-				if(doiXung(xau, xauLength)){
-					isDoiXung = true;
-				}else{
-					continue;
+		if(li == 1){
+			isDoiXung = true;
+		}
+		else if(lastCheck.isDx == false && lastCheck.len >= li){
+			isDoiXung = false;
+		}
+		else if(li > stringLength){
+			isDoiXung = false;
+		}
+		else{
+			for(int i = 0; i < stringLength; ++i){	
+				xau = "";
+				xauLength = 0;
+				for(int j = i; j < i+li; j++){
+					xau+= s[j];
+					xauLength++;
+				}
+				if(xauLength == li){
+					// kiem tra tinh doi xung
+					if(doiXung(xau, xauLength)){
+						isDoiXung = true;
+						break;
+					}else{
+						continue;
+					}
 				}
 			}
 
@@ -70,7 +92,13 @@ int main(){
 
 		if(isDoiXung){
 			fo << 1 << endl;
+
 		}else{
+			if(li > lastCheck.len){
+				lastCheck.isDx = false;
+				lastCheck.len = li;
+			}
+			
 			fo << 0 << endl;
 		}
 
