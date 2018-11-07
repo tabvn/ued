@@ -63,9 +63,6 @@ void lamTron(){
 
 	}
 
-
-
-
 	// bắt đầu làm tròn ta tiến hành từ phải sang trái
 
 	for(int i = v.size() -1; i >= 0; i--){
