@@ -110,6 +110,8 @@ void findSmallestPalin(string s) {
     } else {
 
 
+        bool isIncreased = false;
+
         for (int i = len - 1; i >= 0; --i) {
             if (i <= len - i - 1) {
                 break;
@@ -143,10 +145,12 @@ void findSmallestPalin(string s) {
                 }
 
                 s[i] = paseChar(num);
-                s[len - i - 1] = paseChar(num);
-                if (i < (len - i - 1)) {
-
+                
+                if(paseInt(s[len-i-1]) < 9 || i < (len -i -1)){
+                    s[len - i - 1] = paseChar(num);
                 }
+                
+                
 
                 if (remember == 0) {
                     break;
@@ -188,10 +192,8 @@ int main() {
         s = v[i];
         clean(s);
         findSmallestPalin(s);
-        if (i < v.size() - 1) {
-            cout << endl;
-        }
-
+        cout << endl;
+       
 
     }
 
