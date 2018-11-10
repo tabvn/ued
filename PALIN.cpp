@@ -33,6 +33,7 @@ bool doiXung(string s, long long length){
 	while(s[i] == s[j]){
 		if(i >= j){
 			dx = true;
+			break; // updated just now
 		}
 
 		i++;
