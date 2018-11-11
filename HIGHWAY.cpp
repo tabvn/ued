@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 #include <fstream>
 
 using namespace std;
@@ -61,9 +62,10 @@ int main(){
 
 	for (int i = 0; i < (int) v.size() -1; ++i){
 		tmpValue = v[i+1].value - v[i].value;
-		if(minValue ==0){
+		if(minValue ==0 && tmpValue != 0){
 			minValue = tmpValue;
 		}
+		
 		if(tmpValue < minValue && tmpValue != 0){
 			minValue = tmpValue;
 		}

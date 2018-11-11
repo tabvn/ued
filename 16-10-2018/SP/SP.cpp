@@ -23,8 +23,26 @@ int main(){
 
 	fi >> m >> n >> t;
 
-	sum = ((n*m)/(m+1)) *t;
-	fo << sum;
+	//sum = ((n*m)/(m+1)) *t;
+
+	long long total = 0;
+	long long totalNeedBuy = 0;
+	long long inc = 0;
+
+	while(true){
+		total ++;
+		totalNeedBuy++;
+		inc++;
+		if(inc == m){
+			total++;
+			inc = 0;
+		}
+		if(total == n){
+			break;
+		}	
+	}
+
+	fo << totalNeedBuy * t;
 
 	return 0;
 
