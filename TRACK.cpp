@@ -52,8 +52,7 @@ int main(){
 	}
 
 	fo << total;
-
-
+	
 	fi.close();
 	fo.close();
 
