@@ -225,18 +225,24 @@ int main(){
         addMoney(ci, i);
     }
     
-   int p = 0;
-   for (int i = 0; i < v.size(); ++i){
-   	play(p);
-   	p = !p;
-   	if(currentIndex == v.size() - 1){
-   		break;
-   	}
-   }
+   if(n == 1){
+   	cout << v[0]->value;
+   } else if(n == 2 || n==3){
+  		cout << (v[0]->value + v[1]->value);
+   }else{
+   	 int p = 0;
+	   for (int i = 0; i < v.size(); ++i){
+		   	play(p);
+		   	p = !p;
+		   	if(currentIndex == v.size() - 1){
+		   		break;
+		   	}
+	   }
 
-  
-    
-  finish();
+	  finish();
+	  
+   }
+   
     
     return 0;
 }

@@ -4,8 +4,8 @@
 
 using namespace std;
 
-string s;
-string filterString;
+string s = "";
+string filterString = "";
 void _replace(){
 	string::size_type i = s.find(filterString);
 	while(true){
@@ -20,8 +20,12 @@ void _replace(){
 }
 int main(){
 
-	cin >> s >> filterString;
-	if(filterString.size() > s.size() || (filterString.size() == s.size() && s != filterString) ){
+
+	getline(cin, s);
+	getline(cin, filterString);
+	//cin >> s >> filterString;
+
+	if(filterString.size() == 0 || filterString.size() > s.size() || (filterString.size() == s.size() && s != filterString) ){
 		cout << s;
 	}else{
 		_replace();
