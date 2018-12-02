@@ -5,8 +5,8 @@
 
 using namespace std;
 
-ifstream fi ("/Users/toan/ued/graph/DIJKSTRA.INP");
-ofstream fo ("/Users/toan/ued/graph/DIJKSTRA.OUT");
+ifstream fi ("DIJKSTRA.INP");
+ofstream fo ("DIJKSTRA.OUT");
 
 // Kieu dinh
 struct Dinh
