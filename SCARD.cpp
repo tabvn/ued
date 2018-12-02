@@ -6,15 +6,9 @@
 using namespace std;
 
 
-ifstream fi ("/Users/toan/ued/18-10-2018/SCARD.INP");
-ofstream fo ("/Users/toan/ued/18-10-2018/SCARD.OUT");
+ifstream fi ("/Users/toan/ued/SCARD.INP");
+ofstream fo ("/Users/toan/ued/SCARD.OUT");
 
-
-
-/*
-ifstream fi ("SCARD.INP");
-ofstream fo ("SCARD.OUT");
-*/
 
 struct Phong{	
 	vector<long long> v;

@@ -12,6 +12,7 @@ bool ascSort(int a, int b){
 
 void removeZeroLeading(){
 
+
 	vector<int> zeroArr;
 
 	int secondIndex = 0;
@@ -27,24 +28,49 @@ void removeZeroLeading(){
 		}
 	}
 
+/*
 	for (int i = 0; i < zeroArr.size(); ++i){
+			if(secondIndex > v.size() -1){
+				v.erase(v.begin()+i);
+				v.push_back(0);
+				v.push_back(0);
+				break;
+			}
 			tmp = v[secondIndex];
 			v[secondIndex] = 0;
 			v[zeroArr[i]] = tmp;
-			secondIndex++;
+			secondIndex += 2;
 	}
+
+	*/
+
+	for (int i = 0; i < zeroArr.size(); ++i){
+		if(secondIndex > int(v.size() -1)){
+			break;
+		}
+	
+		tmp = v[secondIndex];
+		v[zeroArr[i]] = tmp;
+		v[secondIndex] = 0;
+		secondIndex++;
+	}
+
+/*
+	for (int i = 0; i < v.size(); ++i){
+		cout << v[i] << " ";
+	}
+	*/
 
 }
 void solveProblem(int problemCase){
 
 		sort(v.begin(), v.end(), ascSort);
-
 		removeZeroLeading();
 		 
     long long a = 0, b = 0; 
     for (int i = 0; i < v.size(); i++) 
     { 
-      if (i %2 ==0) {
+      if (i & 1) {
       	a = a*10 + v[i]; 
       }   
       else{
@@ -61,6 +87,7 @@ void solveProblem(int problemCase){
 int main(){
 	int t,n, digit;
 	cin >> t;
+
 	
 	for (int i = 0; i < t; ++i){
 		cin >> n;

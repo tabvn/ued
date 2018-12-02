@@ -7,8 +7,7 @@ bool isPrime(long int n){
 	if(n < 2){
 		return false;
 	}
-
-	for (int i = 2; i <= sqrt(n); ++i){
+	for (long int i = 2; i <= sqrt(n); ++i){
 		if(n%i == 0){
 			return false;
 		}
@@ -17,11 +16,10 @@ bool isPrime(long int n){
 	return true;
 }
 
-
 int main(){
 	
 	long int n,a;
-	long long sum = 0;
+	long long sum;
 
 	cin >> n;
 	for (int i = 0; i < n; ++i){

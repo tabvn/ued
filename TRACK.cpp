@@ -9,20 +9,14 @@ ofstream fo ("TRACK.OUT");
 
 vector<long long> v;
 
-int main(){
 
-	long long n,t,x;
+
+/*
+// cach khong hieu qua
+void fn(int t){
 
 	long long total = 0;
 	long long sum = 0;
-
-	fi >> n >> t;
-
-	for (long long i = 0; i < n; ++i){
-		fi>>x;
-		v.push_back(x);
-	}
-
 	for (long long i = 0; i < v.size(); ++i){
 		if(v[i] > t){
 			continue;
@@ -51,8 +45,59 @@ int main(){
 
 	}
 
+	cout << total;
 	fo << total;
-	
+}
+*/
+
+
+// giai phap tot hon
+
+long long fn(long long t){
+		int start,end;
+
+		long long count = 0;
+		long long sum = v[0]; 
+		int n = (int) v.size();
+
+		start = 0;
+		end = 0;
+
+		while (end < n)  
+		{ 
+			// neu tong <= tan rac thi tiep tuc di toi va cap nhat count va tong
+			if (sum <= t)  
+			{ 
+			    end++; 
+			    count += end - start; 
+			    if (end < n){
+			    	 sum += v[end]; 
+			    } 
+			   
+			} 
+			else 
+			{ 
+				// neu tong ma lon hon Tan rac thi tru di sum va dong thoi tang vi tri bat dau dem len
+			    sum -= v[start]; 
+			    start++; 
+			} 
+		} 
+
+		return count; 
+}
+
+int main(){
+
+	long long n,t,x;
+	fi >> n >> t;
+	for (long long i = 0; i < n; ++i){
+		fi>>x;
+		v.push_back(x);
+	}
+
+	fo << fn(t);
+
+
 	fi.close();
 	fo.close();
 

@@ -5,14 +5,8 @@
 
 using namespace std;
 
-/*
-ifstream fi ("/Users/toan/ued/18-10-2018/NUMSET.INP");
-ofstream fo ("/Users/toan/ued/18-10-2018//NUMSET.OUT");
-*/
-
-
-ifstream fi ("NUMSET.INP");
-ofstream fo ("NUMSET.OUT");
+ifstream fi("NUMSET.INP");
+ofstream fo("NUMSET.OUT");
 
 string s;
 vector<string> v;
@@ -161,3 +155,4 @@ int main(){
 
 	return 0;
 }
+
