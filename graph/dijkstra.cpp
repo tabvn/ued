@@ -194,7 +194,7 @@ struct DoThi
 			if(dinhCuoi->khoangCach == INT_MAX){
 				fo << "NO";
 			}else{
-				fo << "Yes" << endl;
+				fo << "YES" << endl;
 				fo << dinhCuoi->khoangCach << endl;
 
 				vector<Dinh*> cacDinhDuongDi;
