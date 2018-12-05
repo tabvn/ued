@@ -187,8 +187,6 @@ struct DoThi
 
 			buocLap(dinhBatDau);
 
-	
-
 			Dinh *dinhCuoi = this->timDinh(cuoi);
 
 			if(dinhCuoi->khoangCach == INT_MAX){

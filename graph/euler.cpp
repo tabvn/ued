@@ -131,16 +131,19 @@ struct Graph
 		int vertextIndex = 0;
 		while(true){
 
-			cout << visitedVertices;
-
 			if(visitedVertices == this->vertices.size()){
+
 				break;
 			}
+			
 
 			Vertex *v = this->vertices[vertextIndex];
 			component.vertices.push_back(v);
 			v->visited = true;
 			visitedVertices++;
+
+			
+
 
 			int nextVertexIndex = -1;
 			for (int i = 0; i < this->edges.size(); ++i){
