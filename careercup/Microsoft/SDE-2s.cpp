@@ -4,7 +4,6 @@
 #include <string>
 #include <chrono>
 
-using namespace std;
 
 struct Subscriber
 {
@@ -22,7 +21,7 @@ struct Subscriber
 
 struct Queue{
 	std::string name;
-	vector<Subscriber*> subscribers;
+	std::vector<Subscriber*> subscribers;
 	Queue(std::string name){
 		this->name = name;
 	}
@@ -30,7 +29,7 @@ struct Queue{
 
 struct Event{
 
-	vector<Queue*> queues;
+	std::vector<Queue*> queues;
 
 	Queue* addQueue(std::string name){
 
@@ -52,6 +51,7 @@ struct Event{
 		q->subscribers.push_back(subscriber);
 
 		// Print message when new subscriber joined.
+		std::cout << "New subscriber: "<< std::endl;
 		std::cout << "Username: " << subscriber->username << std::endl;
 		std::cout << "Password: " << subscriber->password << std::endl;
 
@@ -82,7 +82,7 @@ struct Event{
 * This is function callback when receive message of the queue
 */
 void messageReceivedCallback(std::string message){
-	std::cout << "Received message:" << message << endl;
+	std::cout << "Received message:" << message << std::endl;
 }
 
 
@@ -97,7 +97,10 @@ void runEvent(){
 	//New subscriber
 	Subscriber *subscriber = new Subscriber("admin", "admin", messageReceivedCallback);
 	even.addSubscriber(queue, subscriber);
+	
 	even.listen(8161);
+
+
 
 }
 
@@ -105,8 +108,7 @@ void runEvent(){
 */
 void pushMessage(){
 
-	// loop and send message every 3 seconds
-
+	// loop and send message every 2 seconds
 	while(true){
 
 		std::this_thread::sleep_for (std::chrono::seconds(2));
