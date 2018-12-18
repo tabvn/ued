@@ -123,6 +123,5 @@ int main(int argc, char const *argv[]){
 	std::thread pushMessageThread(pushMessage);
 	eventThread.join();
 	pushMessageThread.join();
-
 	return 0;
 }
