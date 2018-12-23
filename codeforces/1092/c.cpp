@@ -3,9 +3,7 @@
 #include <vector>
 #include <algorithm>
 #include <map>
-
 using namespace std;
-
 struct Tabvn{
 	int len;
 
@@ -216,9 +214,6 @@ int main(int argc, char const *argv[]){
 
 	// solve problem
 	t.solve();
-
-
-
 
 
 	return 0;
