@@ -54,7 +54,9 @@ struct Tree {
     std::vector<Node *> findByValue(int value) {
         std::vector<Node *> v;
         std::unordered_map<int, std::vector<Node *> >::iterator it = this->map.find(value);
+
         if (it != this->map.end()) {
+
             return it->second;
         }
 
@@ -87,6 +89,7 @@ struct Tree {
     void addNode(Node *root, Node *node, char ch) {
         // append new node to array of nodes
         this->nodes.push_back(node);
+        this->addNodeToMap(node);
 
         // if the tree is empty add this as root node.
         if (this->root == nullptr) {
@@ -128,12 +131,54 @@ struct Tree {
 
         if (!this->nodes.empty()) {
             std::sort(this->nodes.begin(), this->nodes.end(), sortTreeCallback);
+            this->sortMap();
         }
 
     }
 
+    void sortMap() {
+
+        for (std::unordered_map<int, std::vector<Node *> >::iterator _it = this->map.begin();
+             _it != this->map.end(); ++_it) {
+            std::sort(_it->second.begin(), _it->second.end(), sortTreeCallback);
+        }
+    }
+
 
 };
+
+/**
+ * Check two node is equal
+ * @param n
+ * @param m
+ * @return
+ */
+bool _nodeIsEqual(Node *n, Node *m) {
+
+
+    if (n->value == m->value && n->numOfChildren == m->numOfChildren && n->left == nullptr && n->right == nullptr &&
+        m->left == nullptr && m->right == nullptr) {
+        return true;
+    }
+
+    if (n->value != m->value || n->numOfChildren != m->numOfChildren || n->sum != m->sum) {
+        return false;
+    }
+
+    if (n->left == nullptr && n->right == nullptr && m->left == nullptr && m->right == nullptr) {
+        return true;
+    }
+
+    if (_nodeIsEqual(n->left, m->left)) {
+        return _nodeIsEqual(n->right, m->right);
+    }
+
+    if (_nodeIsEqual(n->left, m->right)) {
+        return _nodeIsEqual(n->right, m->left);
+    }
+
+    return false;
+}
 
 /**
  *
@@ -153,11 +198,17 @@ Node *_findLargeSubTree(Tree *largeTree, Tree *smallTree) {
         }
 
         for (int j = 0; j < largeTreeNodes.size(); ++j) {
-            
+
+            if (_nodeIsEqual(currentNode, largeTreeNodes[j])) {
+                // found
+                return currentNode;
+            }
         }
 
 
     }
+
+    return nullptr;
 }
 
 /**
@@ -215,6 +266,13 @@ void example1() {
     t2->sort();
 
     Node *n = findLargeSubTree(t1, t2);
+
+    if (n != nullptr) {
+        std::cout << "Found large sub tree:" << std::endl;
+        std::cout << "Root node: " << n->value << " numOfChild:" << n->numOfChildren << " sum:" << n->sum;
+    } else {
+        std::cout << "Not found" << std::endl;
+    }
 }
 
 int main() {
