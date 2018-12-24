@@ -232,6 +232,7 @@ Node *findLargestSubTree(Tree *t1, Tree *t2) {
     return _findLargestSubTree(t2, t1);
 }
 
+
 void example1() {
 
 /*
@@ -278,10 +279,61 @@ void example1() {
     }
 }
 
+void example2() {
+
+/*
+
+        1                    1
+       /  \                /   \
+      2    3              2     3     OUTPUT =    4
+     /    / \            / \   / \
+    4     4  5          3   4  5  4
+         /                    /
+        6                    6
+
+*/
+
+    Tree *t1 = new Tree();
+    t1->addNode(nullptr, new Node(1), 'L');
+    t1->addNode(t1->root, new Node(2), 'L');
+    t1->addNode(t1->root->left, new Node(4), 'L');
+
+    t1->addNode(t1->root, new Node(3), 'R');
+    t1->addNode(t1->root->right, new Node(4), 'L');
+    t1->addNode(t1->root->right, new Node(5), 'R');
+    t1->addNode(t1->root->right->left, new Node(6), 'L');
+    t1->sort();
+
+
+    Tree *t2 = new Tree();
+
+    t2->addNode(nullptr, new Node(1), 'L');
+    t2->addNode(t2->root, new Node(2), 'L');
+    t2->addNode(t2->root->left, new Node(3), 'L');
+    t2->addNode(t2->root->left, new Node(4), 'R');
+
+    t2->addNode(t2->root, new Node(3), 'R');
+    t2->addNode(t2->root->right, new Node(5), 'L');
+    t2->addNode(t2->root->right, new Node(4), 'R');
+    t2->addNode(t2->root->right->left, new Node(6), 'L');
+
+    t2->sort();
+
+    Node *n = findLargestSubTree(t1, t2);
+
+    if (n != nullptr) {
+        std::cout << "Found large sub tree:" << std::endl;
+        std::cout << "Root node: " << n->value << " numOfChild:" << n->numOfChildren << " sum:" << n->sum;
+    } else {
+        std::cout << "Not found" << std::endl;
+    }
+}
+
 int main() {
 
     example1();
 
+    example2();
 
     return 0;
 }
