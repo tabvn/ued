@@ -136,6 +136,9 @@ struct Tree {
 
     }
 
+    /**
+     * Sort the map by numOfchildren descesding
+     */
     void sortMap() {
 
         for (std::unordered_map<int, std::vector<Node *> >::iterator _it = this->map.begin();
