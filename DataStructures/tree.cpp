@@ -186,7 +186,7 @@ bool _nodeIsEqual(Node *n, Node *m) {
  * @param smallTree
  * @return
  */
-Node *_findLargeSubTree(Tree *largeTree, Tree *smallTree) {
+Node *_findLargestSubTree(Tree *largeTree, Tree *smallTree) {
 
     for (int i = 0; i < smallTree->nodes.size(); ++i) {
         Node *currentNode = smallTree->nodes[i];
@@ -217,16 +217,16 @@ Node *_findLargeSubTree(Tree *largeTree, Tree *smallTree) {
  * @param t2
  * @return
  */
-Node *findLargeSubTree(Tree *t1, Tree *t2) {
+Node *findLargestSubTree(Tree *t1, Tree *t2) {
 
     if (t1->nodes.empty() || t2->nodes.empty()) {
         return nullptr;
     }
     if (t1->nodes.size() > t2->nodes.size()) {
-        return _findLargeSubTree(t1, t2);
+        return _findLargestSubTree(t1, t2);
     }
 
-    return _findLargeSubTree(t2, t1);
+    return _findLargestSubTree(t2, t1);
 }
 
 void example1() {
@@ -265,7 +265,7 @@ void example1() {
 
     t2->sort();
 
-    Node *n = findLargeSubTree(t1, t2);
+    Node *n = findLargestSubTree(t1, t2);
 
     if (n != nullptr) {
         std::cout << "Found large sub tree:" << std::endl;
