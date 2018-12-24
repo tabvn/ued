@@ -4,31 +4,28 @@
 #include <unordered_map>
 
 struct Node {
-
     int value;
     int numOfChildren;
     int sum; // sum of node with it's children value
-
     Node *root, *left, *right;
 
     Node(int value) {
         this->value = value;
         this->sum = 0;
         this->numOfChildren = 0;
-        this->root = NULL;
-        this->left = NULL;
-        this->right = NULL;
+        this->root = nullptr;
+        this->left = nullptr;
+        this->right = nullptr;
     }
 };
 
 struct Tree {
-
     Node *root;
     std::vector<Node *> nodes; // store all nodes in an array of vector
     std::unordered_map<int, std::vector<Node *> > map; // store array of nodes by Node value, use for fast access later
 
     Tree() {
-        this->root = NULL;
+        this->root = nullptr;
     }
 
     /**
@@ -37,8 +34,7 @@ struct Tree {
      * @param newNode
      */
     void updateRoot(Node *node, Node *newNode) {
-
-        if (node->root == NULL) {
+        if (node->root == nullptr) {
             return;
         }
 
@@ -50,17 +46,14 @@ struct Tree {
     }
 
     /**
-     * Find all node with value
-     *
-     * @param node
-     * @return std::vector<node*>
+     * Find nodes by values
+     * @param value
+     * @return
      */
 
-    std::vector<Node *> find(Node *node) {
-
+    std::vector<Node *> findByValue(int value) {
         std::vector<Node *> v;
-
-        std::unordered_map<int, std::vector<Node *> >::iterator it = this->map.find(node->value);
+        std::unordered_map<int, std::vector<Node *> >::iterator it = this->map.find(value);
         if (it != this->map.end()) {
             return it->second;
         }
@@ -91,32 +84,24 @@ struct Tree {
      * @param node
      * @param addToLeft
      */
-    void addNode(Node *root, Node *node, bool addToLeft) {
-
+    void addNode(Node *root, Node *node, char ch) {
         // append new node to array of nodes
         this->nodes.push_back(node);
 
-        // we also add to map to access later by value
-
-
         // if the tree is empty add this as root node.
-        if (this->root == NULL) {
+        if (this->root == nullptr) {
             this->root = node;
 
             return;
         }
-
         // add to the left value
-        if (addToLeft) {
+        if (ch == 'L') {
             root->left = node;
         } else {
             root->right = node;
         }
-
         node->root = root;
-
         // let update parent NumOfChildren and value
-
         root->numOfChildren++;
         root->sum += node->value;
 
@@ -124,23 +109,6 @@ struct Tree {
         this->updateRoot(root, node);
     }
 
-    /**
-     * Add new node to left of node in the tree
-     * @param root
-     * @param node
-     */
-    void addLeftNode(Node *root, Node *node) {
-        this->addNode(root, node, true);
-    }
-
-    /**
-     * Add new node to right of node in the tree
-     * @param root
-     * @param node
-     */
-    void addRightNode(Node *root, Node *node) {
-        this->addNode(root, node, false);
-    }
 
     /**
      * Sort node order by numOfChildren Descending
@@ -157,13 +125,102 @@ struct Tree {
      */
 
     void sort() {
-        std::sort(this->nodes.begin(), this->nodes.end(), sortTreeCallback);
+
+        if (!this->nodes.empty()) {
+            std::sort(this->nodes.begin(), this->nodes.end(), sortTreeCallback);
+        }
+
     }
 
 
 };
 
+/**
+ *
+ * @param largeTree
+ * @param smallTree
+ * @return
+ */
+Node *_findLargeSubTree(Tree *largeTree, Tree *smallTree) {
+
+    for (int i = 0; i < smallTree->nodes.size(); ++i) {
+        Node *currentNode = smallTree->nodes[i];
+        std::vector<Node *> largeTreeNodes = largeTree->findByValue(currentNode->value);
+
+        if (largeTreeNodes.empty()) {
+            // not found same node value in large tree. so we skip it.
+            continue;
+        }
+
+        for (int j = 0; j < largeTreeNodes.size(); ++j) {
+            
+        }
+
+
+    }
+}
+
+/**
+ *
+ * @param t1
+ * @param t2
+ * @return
+ */
+Node *findLargeSubTree(Tree *t1, Tree *t2) {
+
+    if (t1->nodes.empty() || t2->nodes.empty()) {
+        return nullptr;
+    }
+    if (t1->nodes.size() > t2->nodes.size()) {
+        return _findLargeSubTree(t1, t2);
+    }
+
+    return _findLargeSubTree(t2, t1);
+}
+
+void example1() {
+
+/*
+
+        1                    1
+       /  \                /   \
+      2    3              2     3
+     /    / \            / \   / \
+    4     4  5          3   4  5  4
+
+*/
+
+    Tree *t1 = new Tree();
+    t1->addNode(nullptr, new Node(1), 'L');
+    t1->addNode(t1->root, new Node(2), 'L');
+    t1->addNode(t1->root->left, new Node(4), 'L');
+
+    t1->addNode(t1->root, new Node(3), 'R');
+    t1->addNode(t1->root->right, new Node(4), 'L');
+    t1->addNode(t1->root->right, new Node(5), 'R');
+    t1->sort();
+
+
+    Tree *t2 = new Tree();
+
+    t2->addNode(nullptr, new Node(1), 'L');
+    t2->addNode(t2->root, new Node(2), 'L');
+    t2->addNode(t2->root->left, new Node(3), 'L');
+    t2->addNode(t2->root->left, new Node(4), 'R');
+
+    t2->addNode(t2->root, new Node(3), 'R');
+    t2->addNode(t2->root->right, new Node(5), 'L');
+    t2->addNode(t2->root->right, new Node(4), 'R');
+
+    t2->sort();
+
+    Node *n = findLargeSubTree(t1, t2);
+}
+
 int main() {
+
+    example1();
+
 
     return 0;
 }
