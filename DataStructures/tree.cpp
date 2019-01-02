@@ -322,7 +322,7 @@ void example2() {
     Node *n = findLargestSubTree(t1, t2);
 
     if (n != nullptr) {
-        std::cout << "Found large sub tree:" << std::endl;
+        std::cout << "\nFound large sub tree:" << std::endl;
         std::cout << "Root node: " << n->value << " numOfChild:" << n->numOfChildren << " sum:" << n->sum;
     } else {
         std::cout << "Not found" << std::endl;

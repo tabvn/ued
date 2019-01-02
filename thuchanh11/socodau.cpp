@@ -5,7 +5,7 @@
 using namespace std;
 vector<int> v;
 
-int main(int argc, char const *argv[]){
+int main(){
 	int n;
 	cin >> n;
 	while(n > 0){

@@ -32,7 +32,7 @@ struct Name
 	}
 	
 };
-int main(int argc, char const *argv[]){
+int main(){
 	string s;
 	getline(cin, s);
 	Name n(s);
