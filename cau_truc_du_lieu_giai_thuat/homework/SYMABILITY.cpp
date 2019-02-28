@@ -1,128 +1,61 @@
 #include <iostream>
+#include <algorithm>
 using namespace std;
 
+bool isSymability(long long *a, int n){
 
-class Array
-{
+	sort(a+0, a+n); // sort array
 
-private:
+	// dem thanh phan xuat hien khong chia het cho 2
 
-	int _size;
-	long long *items;
-	long long _cursor;
+	int inc = 1;
+	int count = 0;
 
+	for (int i = 1; i < n; ++i){
+			if(a[i] == a[i-1]){
+				inc ++;
+			}else{
 
-public:
-
-	Array(int size){
-		_cursor =0;
-		_size = size;
-		items = new long long[size];
+				if(inc %2 != 0){
+					count ++; // tang thanh phan xuat hien ma ko chia het cho 2
+				}
+				inc = 1;
+			}
 	}
 
-	void push(long long item){
-		items[_cursor] = item;
-		_cursor++;
-	}
-
-	void set(int index, long long item){
-		this->items[index] = item;
-	}
-
-	long long get(int index){
-
-		return this->items[index];
-	}
-
-	int size(){
-
-		return _size;
-	}
-
-	void print(){
-
-		for (int i = 0; i < this->size(); ++i){
-			cout << this->get(i) << " ";
-		}
-	}
-
-	bool isSymability(){
-
-
-		long long c[this->size()]; // cached 
-		if(this->size() == 0 || this->size() == 1){
+	if(n %2 == 0){
+		// neu so luong chan ma thanh phan xuat hien ko chia het cho 2 = 0 thi true
+		if(count == 0){
 			return true;
 		}
+	}else{
+		// so luong le thi thanh phan ko chia het cho 2 = 1 thi true
 
-		for (int i = 0; i < this->size(); ++i){
-			c[i] = 0;
+		if(count == 1){
+			return true;
 		}
-
-		for (int i = 0; i < this->size(); ++i){
-
-			c[this->get(i)] ++;
-		}
-
-		int thanhPhanKhongChiaHetChohai = 0;
-
-		for (int i = 0; i < this->size(); ++i){
-			if(c[this->get(i)] %2 != 0){
-				thanhPhanKhongChiaHetChohai ++;
-			}
-		}
-
-		if(this->size() %2 != 0){
-			// so phan tu le
-			if(thanhPhanKhongChiaHetChohai == 1){
-				return true;
-			}
-		}else{
-
-			// thanh phan chan
-			if(thanhPhanKhongChiaHetChohai == 0){
-				return true;
-			}
-		}
-		
-
-		return false;
-
-
 	}
 
-	/*
-	* Deconstructor
-	*/
-	~ Array(){
-		
-		delete[] this->items;
-	}
-	
-};
+
+	return false;
 
 
+}
 
 int main(){
 	
 	int n;
-	long long tmp;
-
 	cin >> n;
-
-	Array a(n);
+	long long *a = new long long[n];
 
 	for (int i = 0; i < n; ++i){
-		cin >> tmp;
-		a.push(tmp);
+		cin >> a[i];
 	}
 
-	if(a.isSymability()){
+	if(isSymability(a, n)){
 		cout << "TRUE";
-
-		return 0;
+	}else{
+		cout << "FALSE";
 	}
-
-	cout << "FALSE";
-
 	return 0;
 }
