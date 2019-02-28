@@ -42,11 +42,7 @@ int solve(long long a[], int n){
 }
 int main(){
 
-	cout << "hi";
 
-	//system("clear");
-
-	
 	int n;
 
 	cin >> n;
