@@ -39,36 +39,55 @@ public:
 		return _size;
 	}
 
-	bool isSupascen(){
-
-		if(this->size() < 2){
-			return false;
-		}
-
-		long long s = this->get(0);
-		long long num;
-
-		for (int i = 1; i < this->size(); ++i){
-			num = this->get(i);
-			
-			if(num < s){
-				return false;
-			}
-
-			s+= num;
-		}
-
-		return true;
-
-
-	}
-
-
 	void print(){
 
 		for (int i = 0; i < this->size(); ++i){
 			cout << this->get(i) << " ";
 		}
+	}
+
+	bool isSymability(){
+
+
+		long long c[this->size()]; // cached 
+		if(this->size() == 0 || this->size() == 1){
+			return true;
+		}
+
+		for (int i = 0; i < this->size(); ++i){
+			c[i] = 0;
+		}
+
+		for (int i = 0; i < this->size(); ++i){
+
+			c[this->get(i)] ++;
+		}
+
+		int thanhPhanKhongChiaHetChohai = 0;
+
+		for (int i = 0; i < this->size(); ++i){
+			if(c[this->get(i)] %2 != 0){
+				thanhPhanKhongChiaHetChohai ++;
+			}
+		}
+
+		if(this->size() %2 != 0){
+			// so phan tu le
+			if(thanhPhanKhongChiaHetChohai == 1){
+				return true;
+			}
+		}else{
+
+			// thanh phan chan
+			if(thanhPhanKhongChiaHetChohai == 0){
+				return true;
+			}
+		}
+		
+
+		return false;
+
+
 	}
 
 	/*
@@ -80,6 +99,7 @@ public:
 	}
 	
 };
+
 
 
 int main(){
@@ -96,7 +116,7 @@ int main(){
 		a.push(tmp);
 	}
 
-	if(a.isSupascen()){
+	if(a.isSymability()){
 		cout << "TRUE";
 
 		return 0;

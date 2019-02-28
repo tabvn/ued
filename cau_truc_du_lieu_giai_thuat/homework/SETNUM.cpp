@@ -1,83 +1,44 @@
 #include <iostream>
-#include <math.h>
+#include <algorithm>
 using namespace std;
 
-struct Array
-{
 
-	int _size;
-	int *items;
-	int _cursor;
-
-	Array(int size){
-		_cursor =0;
-		_size = size;
-		items = new int[size];
-	}
-
-	void push(int item){
-		items[_cursor] = item;
-		_cursor++;
-	}
-
-	void set(int index, int item){
-		this->items[index] = item;
-	}
-	int get(int index){
-
-		return this->items[index];
-	}
-
-	int size(){
-		return _size;
-	}
-
-	int findDiffLength(){
-
-		int c[this->size()]; // cache array 
-		int duplicateNumbers = 0;
-
-		for (int i = 0; i < this->size(); ++i){
-
-			if(c[this->get(i)] == 1){
-				// found dulicated number before
-				duplicateNumbers++;
-			}else{
-				c[this->get(i)] = 1;
-			}
-		}
-
-		return this->size() - duplicateNumbers;
-
-	}
-	void print(){
-
-		for (int i = 0; i < this->size(); ++i){
-			cout << this->get(i) << " ";
-		}
-	}
+void solve(int *a, int n){
 	
-};
+	 sort(a+0, a+n); // sap xep tang dan
 
+	 int total = n;
+
+	 int inc = 1;
+
+	 // dem so lan xuat hien va tru di + 1
+	 for (int i = 1; i < n; ++i){
+	 		if(a[i] == a[i-1]){
+	 			inc ++;
+	 		}else{
+	 			inc = 1; 
+	 		}
+
+	 		total = total - inc + 1;
+
+	 }
+
+	 cout << total;
+}
 
 
 int main(){
 
-	
-	int n,tmp;
+
+	int n;
 	cin >> n;
-	
-	Array a(n);
+
+	int *a = new int[n];
 
 	for (int i = 0; i < n; ++i){
-		cin >> tmp;
-		a.push(tmp);
-
-	}	
-
-
-	cout << a.findDiffLength();
-
+		cin >> a[i];
+	}
+	solve(a, n);
 
 
 	return 0;

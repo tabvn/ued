@@ -1,101 +1,55 @@
 #include <iostream>
-
+#include <vector>
 using namespace std;
 
-class Array
-{
-
-private:
-
-	int _size;
-	long long *items;
-	long long _cursor;
+vector<long long> v;
 
 
-public:
+long int solve(){
 
-	Array(int size){
-		_cursor =0;
-		_size = size;
-		items = new long long[size];
+	if(v.size() == 0){
+		return 0;
+	}
+	if(v.size() == 1){
+		return 1;
 	}
 
-	void push(long long item){
-		items[_cursor] = item;
-		_cursor++;
-	}
+	long int max = 0;
+	long int maxSofar = 1;
 
-	void set(int index, long long item){
-		this->items[index] = item;
-	}
-
-	long long get(int index){
-
-		return this->items[index];
-	}
-
-	int size(){
-
-		return _size;
-	}
-
-
-	int findLongest(){
-
-		if(this->size() == 0){
-			return 0;
-		}
-		int max = 1;
-		int maxSofar = 1;
-
-		for (int i = 1; i < this->size(); ++i){
-			if(this->get(i) >= this->get(i-1)){
-				maxSofar++;
-			}else{
-				if(maxSofar > max){
-
-					max = maxSofar;
-					maxSofar = 1;
-				}
+	for (long int i = 1; i < v.size(); ++i){
+		if(v[i] >= v[i-1]){
+			
+			maxSofar ++;
+		}else{
+			if(maxSofar > max){
+				max = maxSofar;
 			}
+			maxSofar = 1;
 		}
 
-		return max;
 	}
 
-	void print(){
-
-		for (int i = 0; i < this->size(); ++i){
-			cout << this->get(i) << " ";
-		}
+	if(maxSofar > max){
+		max = maxSofar;
 	}
 
-	/*
-	* Deconstructor
-	*/
-	~ Array(){
-		
-		delete[] this->items;
-	}
-	
-};
-
-
+	return max;
+}
 int main(){
 	
-	int n;
+	long int n;
 	long long tmp;
 	cin >> n;
 
-	Array a(n);
 
-	for (int i = 0; i < n; ++i){
+
+	for (long int i = 0; i < n; ++i){
 		cin >> tmp;
-		a.push(tmp);
+		v.push_back(tmp);
 	}
 
-
-	cout << a.findLongest();
+	cout << solve();
 
 	return 0;
 }

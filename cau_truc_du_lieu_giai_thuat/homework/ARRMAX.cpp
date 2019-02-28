@@ -1,11 +1,11 @@
 #include <iostream>
 using namespace std;
 
-long long solve(long long *arr, long int n){	
+long long solve(long long *arr, long long n){	
 
 	long long m = arr[0];
 
-	for (long int i = 0; i < n; ++i){
+	for (long long i = 0; i < n; ++i){
 		if(arr[i] > m){
 			m = arr[i];
 		}
@@ -16,13 +16,16 @@ long long solve(long long *arr, long int n){
 
 int main(){
 	
-	long int n;
+	long long n;
 	cin >> n;
+
 	
 	long long *arr = new long long[n];
 
-	for (long int i = 0; i < n; ++i){
-		
+
+
+	for (long long i = 0; i < n; ++i){
+	
 		cin >> arr[i];
 	}
 
