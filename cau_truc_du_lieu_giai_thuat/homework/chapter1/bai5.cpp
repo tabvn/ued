@@ -1,3 +1,7 @@
+
+/*
+* Kiểm Số đối xứng
+*/
 #include <iostream>
 #include <string>
 using namespace std;

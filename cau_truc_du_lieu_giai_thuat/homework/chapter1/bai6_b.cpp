@@ -1,6 +1,9 @@
 #include <iostream>
 using namespace std;
 
+/*
+Tổng nghịch đảo dạng phân số
+*/
 struct PhanSo
 {
 	long long tu,mau;

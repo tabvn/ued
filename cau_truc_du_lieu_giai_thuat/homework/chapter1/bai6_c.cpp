@@ -1,3 +1,7 @@
+
+/**
+* Tổng và hiệu nghich đảo phân số
+*/
 #include <iostream>
 #include <math.h>
 using namespace std;
