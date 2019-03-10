@@ -5,7 +5,7 @@
     <title>Binary Division Algorithm</title>
 
     <script type="text/javascript">
-        
+
       function toBinary (number, sizeOfBit = 4) {
 
         var arr = []
@@ -135,31 +135,35 @@
       var arr1 = []
       var arr2 = []
 
-      if (a > b) {
-        arr1 = toBinary(a)
-        sizeOfBit = arr1.length
+      function division (a1, a2) {
 
-        arr2 = toBinary(b, sizeOfBit)
+        a = a1
+        b = a2
 
-      } else {
-        arr2 = toBinary(b)
-        sizeOfBit = arr2.length
+        if (a > b) {
+          arr1 = toBinary(a)
+          sizeOfBit = arr1.length
 
-        arr1 = toBinary(a, sizeOfBit)
+          arr2 = toBinary(b, sizeOfBit)
 
-      }
+        } else {
+          arr2 = toBinary(b)
+          sizeOfBit = arr2.length
 
-      Q = arr1
-      M = arr2
-      NegativeM = twoComplement(M)
-      A = initArr(sizeOfBit)
+          arr1 = toBinary(a, sizeOfBit)
 
-      BD = sizeOfBit
+        }
 
-      window.onload = function () {
+        Q = arr1
+        M = arr2
+        NegativeM = twoComplement(M)
+        A = initArr(sizeOfBit)
 
-        document.getElementById('q').innerText = a + '/' + b
+        BD = sizeOfBit
+
         var ROOT = document.getElementById('root')
+
+        ROOT.innerHTML = ''
         var header = document.createElement('div')
 
         header.setAttribute('class', 'header')
@@ -193,7 +197,7 @@
 
           var a0 = A[0]
 
-          console.log('Before', A, Q)
+
 
           var startIndex = 0
 
@@ -213,7 +217,7 @@
 
           Q[lastIndex] = a0
 
-          console.log('After', A, Q)
+
 
           lastA = []
 
@@ -258,8 +262,6 @@
 
           if (A[0] === 1) {
 
-            console.log('l', lastA)
-
             A = lastA
             console.log(A)
             Q[Q.length - 1] = 0
@@ -277,6 +279,22 @@
 
         }
 
+      }
+
+      function update () {
+
+        a = parseInt(document.getElementById('q').value)
+        b = parseInt(document.getElementById('m').value)
+        division(a, b)
+      }
+
+      window.onload = function () {
+
+        a = 7
+        b = 3
+        division(a, b)
+        document.getElementById('q').innerText = a
+        document.getElementById('m').innerText = b
       }
 
 
@@ -300,10 +318,20 @@
         .border-bottom {
             border-bottom: 1px dashed #000000;
         }
+
+        input {
+            width: 20px;
+        }
     </style>
 </head>
 <body>
-<div id="q"></div>
+<div>
+    <input
+            onchange="javascript:update()" value="7" id="q"/>/
+    <input
+            onchange="javascript:update()"
+            value="3" id="m"/>
+</div>
 <div id="root">
 
 </div>
