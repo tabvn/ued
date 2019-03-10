@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Binary Division Algorithm</title>
+
+    <script type="text/javascript">
+        
+      function toBinary (number, sizeOfBit = 4) {
+
+        var arr = []
+
+        while (number > 0) {
+          var x = Math.floor(number / 2)
+          arr.push(number - x * 2)
+
+          number = x
+
+        }
+
+        if (arr.length < sizeOfBit) {
+
+        }
+
+        while (arr.length < sizeOfBit) {
+          arr.push(0)
+        }
+        return arr.reverse()
+      }
+
+      function bitReverse (arr) {
+
+        for (var i = 0; i < arr.length; i++) {
+          if (arr[i] === 0) {
+            arr[i] = 1
+          } else {
+            arr[i] = 0
+          }
+        }
+        return arr
+      }
+
+      function twoComplement (arr) {
+        arr = bitReverse(arr)
+
+        var carry = 0
+        var index = arr.length - 1
+
+        arr[index] += 1
+
+        while (index >= 0) {
+          arr[index] += carry
+          carry = 0
+          if (arr[index] > 1) {
+            carry = 1
+            arr[index] = 0
+          }
+
+          index--
+        }
+
+        return arr
+      }
+
+      function createTextElement (text) {
+
+        var e = document.createElement('div')
+        e.innerText = text
+
+        return e
+      }
+
+      function addTwoBinary (a, b) {
+
+        var index = a.length - 1
+        var carry = 0
+
+        while (index >= 0) {
+          a[index] += carry
+
+          carry = 0
+          if (a[index] > 1) {
+            carry = 1
+            a[index] = 0
+          }
+
+          a[index] += b[index]
+
+          if (a[index] > 1) {
+            a[index] = 0
+            carry = 1
+          }
+
+          index--
+        }
+
+        return a
+      }
+
+      function initArr (sizeOfBit) {
+
+        var arr = []
+
+        while (arr.length < sizeOfBit) {
+          arr.push(0)
+        }
+        return arr
+      }
+
+      function arrToString (arr) {
+        var str = ''
+
+        for (var i = 0; i < arr.length; i++) {
+
+          if (i > 0) {
+            str += ' '
+          }
+          str += arr[i]
+
+        }
+
+        return str
+      }
+
+      var sizeOfBit = 4
+      var a = 7
+      var b = 3
+
+      var Q = []
+      var A = []
+      var M = []
+      var NegativeM = []
+      var BD = 0
+
+      var arr1 = []
+      var arr2 = []
+
+      if (a > b) {
+        arr1 = toBinary(a)
+        sizeOfBit = arr1.length
+
+        arr2 = toBinary(b, sizeOfBit)
+
+      } else {
+        arr2 = toBinary(b)
+        sizeOfBit = arr2.length
+
+        arr1 = toBinary(a, sizeOfBit)
+
+      }
+
+      Q = arr1
+      M = arr2
+      NegativeM = twoComplement(M)
+      A = initArr(sizeOfBit)
+
+      BD = sizeOfBit
+
+      window.onload = function () {
+
+        document.getElementById('q').innerText = a + '/' + b
+        var ROOT = document.getElementById('root')
+        var header = document.createElement('div')
+
+        header.setAttribute('class', 'header')
+
+        header.appendChild(createTextElement('A'))
+        header.appendChild(createTextElement('Q'))
+        header.appendChild(createTextElement('BD'))
+
+        console.log(header)
+
+        ROOT.appendChild(header)
+
+        var row = document.createElement('div')
+
+        row.setAttribute('class', 'row row-0')
+
+        row.appendChild(createTextElement(arrToString(A)))
+        row.appendChild(createTextElement(arrToString(Q)))
+        row.appendChild(createTextElement(BD))
+
+        ROOT.appendChild(row)
+
+        var lastA = A
+
+        while (BD > 0) {
+
+          var ROW = document.createElement('div')
+          ROW.setAttribute('class', 'row')
+
+          var lastIndex = A.length - 1
+
+          var a0 = A[0]
+
+          console.log('Before', A, Q)
+
+          var startIndex = 0
+
+          while (startIndex < lastIndex) {
+            console.log(startIndex + 1)
+            A[startIndex] = A[startIndex + 1]
+            startIndex++
+          }
+
+          A[lastIndex] = Q[0]
+
+          startIndex = 0
+          while (startIndex < lastIndex) {
+            Q[startIndex] = Q[startIndex + 1]
+            startIndex++
+          }
+
+          Q[lastIndex] = a0
+
+          console.log('After', A, Q)
+
+          lastA = []
+
+          for (var i = 0; i < A.length; i++) {
+            lastA.push(A[i])
+          }
+
+          ROW.appendChild(createTextElement(arrToString(A)))
+          ROW.appendChild(createTextElement(arrToString(Q)))
+          ROW.appendChild(createTextElement(''))
+          ROW.appendChild(createTextElement('<- Shift left'))
+
+          ROOT.appendChild(ROW)
+
+          var plusRow = document.createElement('div')
+          plusRow.setAttribute('class', 'row plus-sign')
+          plusRow.appendChild(createTextElement('+'))
+          ROOT.append(plusRow)
+
+          var SUMROW = document.createElement('div')
+          SUMROW.setAttribute('class', 'row border-bottom')
+          SUMROW.appendChild(createTextElement(arrToString(NegativeM)))
+          ROOT.append(SUMROW)
+
+          A = addTwoBinary(A, NegativeM)
+
+          var valueRow = document.createElement('div')
+          valueRow.setAttribute('class', 'row')
+
+          valueRow.appendChild(createTextElement(arrToString(A)))
+
+          if (A[0] === 0) {
+            Q[Q.length - 1] = 1
+            valueRow.appendChild(createTextElement(arrToString(Q)))
+            valueRow.appendChild(createTextElement(BD))
+            lastA = A
+
+          }
+          ROOT.appendChild(valueRow)
+
+          BD--
+
+          if (A[0] === 1) {
+
+            console.log('l', lastA)
+
+            A = lastA
+            console.log(A)
+            Q[Q.length - 1] = 0
+
+            var revertRow = document.createElement('div')
+            revertRow.setAttribute('class', 'row')
+            revertRow.appendChild(createTextElement(arrToString(A)))
+            revertRow.appendChild(createTextElement(arrToString(Q)))
+            revertRow.appendChild(createTextElement(BD))
+            revertRow.appendChild(createTextElement('Revert A'))
+
+            ROOT.appendChild(revertRow)
+
+          }
+
+        }
+
+      }
+
+
+    </script>
+
+    <style type="text/css">
+        .header, .row {
+            display: flex;
+            flex-direction: row;
+
+        }
+
+        .header div, .row div {
+            min-width: 100px;
+        }
+
+        .plus-sign {
+            font-size: 10px;
+        }
+
+        .border-bottom {
+            border-bottom: 1px dashed #000000;
+        }
+    </style>
+</head>
+<body>
+<div id="q"></div>
+<div id="root">
+
+</div>
+</body>
+</html>
