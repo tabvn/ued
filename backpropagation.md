@@ -19,4 +19,4 @@ Backpropagation was one of the first methods able to demonstrate that artificial
 * https://www.youtube.com/watch?v=x_Eamf8MHwU - Lecture 9.2 — Neural Networks Learning | Backpropagation Algorithm — [ Machine Learning | Andrew Ng]
 * https://www.youtube.com/watch?v=Dws9Zveu9ug
 * https://www.cs.cmu.edu/~mgormley/courses/10601-s17/slides/lecture20-backprop.pdf
-* https://www.cs.cmu.edu/~mgormley/courses/10601-s17/slides/lecture20-backprop.pdf
+* http://cs231n.stanford.edu/slides/2017/cs231n_2017_lecture4.pdf
