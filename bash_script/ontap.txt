@@ -1,0 +1,68 @@
+Please do the following exercises
+1.	Use the "echo" command to print the line "Hello, World!".
+2.	Write a shell script to ask your name, program name and enrollment number and print it on the screen.
+3.	Write a shell script to find the sum, the average and the product of the four integers entered.
+4.	Write a shell program to exchange the values of two variables.
+5.	Find the lines containing a number in a file.
+6.	Write a shell script to display the digits which are in odd position in a given 5 digit number.
+7.	Write a shell program to reverse the digits of five digit integer.
+8.	Write a shell script to find the largest among the 3 given numbers.
+9.	Write a shell program to search for a given number from the list of numbers provided using binary search method.
+10.	Write a shell program to concatenate two strings and find the length of the resultant string.
+11.	Write a shell program to find the position of substring in given string.
+12.	Write a shell program to display the alternate digits in a given 7 digit number starting from the first digit.
+13.	Write a shell program to find the greatest common divisor (gcd) for the 2 given numbers.
+14.	Write a shell program to check whether a given string is palindrome or not.
+15.	Write a shell program to find the sum of the series sum=1+1/2+…+1/n.
+16.	Write a shell script to find the smallest of three numbers.
+17.	Write a shell program to add, subtract and multiply the 2 given numbers passed as command line arguments.
+18.	Write a shell program to convert all the contents into the uppercase in a particular file.
+19.	Write a shell program to count number of words, characters, white spaces and special symbols in a given text.
+20.	Write a shell program to find factorial of given number.
+21.	Write a shell script to find the average of the numbers entered in command line.
+22.	Write a shell script to sort the given numbers in descending order using Bubble sort.
+23.	Write a shell program to find the sum of all the digits in a given 5 digit number.
+24.	Write a shell script to generate fibonacci series.
+25.	Shell Script to check whether given year is leap year or not.
+26.	Shell Script to print alternate digit when a 7 digit number is passed.
+27.	Shell script to find average of number at given command line.
+28.	Shell Script to reverse a inputted string and show it.
+29.	Shell script to find occurrence of particular digit in inputted number.
+30.	Shell Script to find whether number given is even or odd.
+31.	Write shell script to find wheather a particular year is a leap year or not.
+32.	Write shell script to reverse a inputed string and show it.
+33.	Write shell script to count occurence of a perticular digit in inputted number.
+Hãy làm các bài tập sau
+1. Sử dụng lệnh "echo" để in dòng "Hello, World!".
+2. Viết một kịch bản shell để hỏi tên, tên chương trình và số đăng ký của bạn và in nó trên màn hình.
+3. Viết tập lệnh shell để tìm tổng, trung bình và tích của bốn số nguyên được nhập.
+4. Viết chương trình shell để trao đổi giá trị của hai biến.
+5. Tìm các dòng chứa một số trong một tập tin.
+6. Viết tập lệnh shell để hiển thị các chữ số ở vị trí lẻ trong một số có 5 chữ số cho trước.
+7. Viết chương trình shell để đảo ngược các chữ số của số nguyên năm chữ số.
+8. Viết tập lệnh shell để tìm số lớn nhất trong số 3 số đã cho.
+9. Viết chương trình shell để tìm kiếm một số đã cho từ danh sách các số được cung cấp bằng phương pháp tìm kiếm nhị phân.
+10. Viết chương trình shell để nối hai chuỗi và tìm độ dài của chuỗi kết quả.
+11. Viết chương trình shell để tìm vị trí của chuỗi con trong chuỗi đã cho.
+12. Viết chương trình shell để hiển thị các chữ số thay thế trong một số 7 chữ số đã cho bắt đầu từ chữ số đầu tiên.
+13. Viết chương trình shell để tìm ước số chung lớn nhất (gcd) cho 2 số đã cho.
+14. Viết chương trình shell để kiểm tra xem một chuỗi đã cho có phải là palindrom hay không.
+15. Viết chương trình shell để tìm tổng của chuỗi tổng = 1 + 1/2 +] + 1 / n.
+16. Viết tập lệnh shell để tìm số nhỏ nhất trong ba số.
+17. Viết chương trình shell để cộng, trừ và nhân 2 số đã cho được truyền dưới dạng đối số dòng lệnh.
+18. Viết chương trình shell để chuyển đổi tất cả nội dung thành chữ hoa trong một tệp cụ thể.
+19. Viết chương trình shell để đếm số lượng từ, ký tự, khoảng trắng và ký hiệu đặc biệt trong một văn bản đã cho.
+20. Viết chương trình shell để tìm giai thừa của số đã cho.
+21. Viết tập lệnh shell để tìm trung bình của các số được nhập trong dòng lệnh.
+22. Viết tập lệnh shell để sắp xếp các số đã cho theo thứ tự giảm dần bằng cách sử dụng Sắp xếp bong bóng.
+23. Viết chương trình shell để tìm tổng của tất cả các chữ số trong một số có 5 chữ số đã cho.
+24. Viết một kịch bản shell để tạo ra chuỗi Series.
+25. Shell Script để kiểm tra xem năm đã cho có phải là năm nhuận hay không.
+26. Shell Script để in chữ số thay thế khi số 7 chữ số được thông qua.
+27. Shell script để tìm trung bình số tại dòng lệnh đã cho.
+28. Shell Script để đảo ngược một chuỗi nhập vào và hiển thị nó.
+29. Shell script để tìm sự xuất hiện của chữ số cụ thể trong số được nhập.
+30. Shell Script để tìm xem số đã cho là chẵn hay lẻ.
+31. Viết kịch bản shell để tìm ra một năm cụ thể là một năm nhuận hay không.
+32. Viết kịch bản shell để đảo ngược chuỗi đã nhập và hiển thị nó.
+33. Viết kịch bản shell để đếm sự xuất hiện của một chữ số vuông góc trong số được nhập.
